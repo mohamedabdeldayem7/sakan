@@ -3,7 +3,6 @@ package com.sakan.sakan.dto;
 
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -11,15 +10,19 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class HouseResponseListDto {
+public class HousesDto {
 
     private UUID id;
 
     private String location;
 
-    private List<String> images;
+    private String image;
 
     private Integer numberOfRooms;
+
+    private String kitchens;
+
+    private String bathrooms;
 
     private Double price;
 

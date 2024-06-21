@@ -18,7 +18,7 @@ public class HouseResponseDto {
 
     private String location;
 
-    private List<String> images;
+    private String image;
 
     private Integer numberOfRooms;
 

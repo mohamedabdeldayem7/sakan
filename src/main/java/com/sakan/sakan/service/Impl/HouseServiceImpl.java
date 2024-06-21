@@ -2,7 +2,7 @@ package com.sakan.sakan.service.Impl;
 
 import com.sakan.sakan.dto.HouseRequestDto;
 import com.sakan.sakan.dto.HouseResponseDto;
-import com.sakan.sakan.dto.HouseResponseListDto;
+import com.sakan.sakan.dto.HousesDto;
 import com.sakan.sakan.entities.House;
 import com.sakan.sakan.exception.HouseNotFoundException;
 import com.sakan.sakan.mapper.HouseMapper;
@@ -14,11 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -41,46 +38,39 @@ import java.util.UUID;
     @Override
     public HouseResponseDto addHouse(
             HouseRequestDto requestDto,
-            List<MultipartFile> files
+            MultipartFile file
     ) throws IOException {
 
-        List<String> uploadedFiles = new ArrayList<>();
-
-        for(MultipartFile file : files){
-            String uploadedFile = fileService.uploadFile(path, file);
-
-            uploadedFiles.add(uploadedFile);
-        }
+        String uploadedFile = fileService.uploadFile(path, file);
 
         House house = mapper.houseRequestDtoToHouse(requestDto);
 
-        house.setImages(uploadedFiles);
+        house.setImage(uploadedFile);
         house.setCreatedAt(LocalDateTime.now());
 
         House savedHouse = houseRepository.save(house);
 
         HouseResponseDto responseDto = mapper.houseToHouseResponseDto(savedHouse);
-        responseDto.setImages(getImagesUrls(savedHouse.getImages()));
+        responseDto.setImage(savedHouse.getImage());
 
         return responseDto;
     }
 
     @Override
-    public List<HouseResponseListDto> getAllHousesByLocation(String location) {
+    public List<HousesDto> getAllHousesByLocation(String location) {
 
         List<House> houses = houseRepository.findAllByLocation(location);
 
-        List<HouseResponseListDto> responseListDtos = houses.stream()
+        List<HousesDto> responseListDtos = houses.stream()
                 .map(mapper::houseToHouseResponseListDto)
                 .toList();
 
         for(int i=0 ; i<houses.size() ; i++){
+
+            String imageUrl = baseUrl + "/file/" + houses.get(i).getImage();
+
             responseListDtos.get(i)
-                    .setImages(
-                            getImagesUrls(
-                                    houses.get(i).getImages()
-                            )
-                    );
+                    .setImage(imageUrl);
         }
         return responseListDtos;
     }
@@ -93,22 +83,11 @@ import java.util.UUID;
 
         HouseResponseDto responseDto = mapper.houseToHouseResponseDto(house);
 
-        responseDto.setImages(getImagesUrls(house.getImages()));
+        String imageUrl = baseUrl + "/file/" + house.getImage();
+
+        responseDto.setImage(imageUrl);
 
         return responseDto;
     }
 
-    private List<String> getImagesUrls(List<String> imagesNames){
-
-        List<String> imagesUrls = new ArrayList<>();
-
-        for(String image : imagesNames){
-
-            String imageUrl = baseUrl + "/file/" + image;
-
-            imagesUrls.add(imageUrl);
-        }
-
-        return imagesUrls;
-    }
 }
