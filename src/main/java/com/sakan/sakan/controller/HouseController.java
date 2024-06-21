@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sakan.sakan.dto.HouseRequestDto;
 import com.sakan.sakan.dto.HouseResponseDto;
-import com.sakan.sakan.dto.HouseResponseListDto;
+import com.sakan.sakan.dto.HousesDto;
 import com.sakan.sakan.service.HouseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +23,15 @@ public class HouseController {
 
     private final HouseService houseService;
 
-    @PostMapping("/add")
+    @PostMapping("/add-house")
     public ResponseEntity<HouseResponseDto> addHouse(
-            @RequestPart @Valid String houseRequestDto,
-            @RequestPart List<MultipartFile> files
+            @RequestPart  String houseDto,
+            @RequestPart MultipartFile file
             ) throws IOException {
 
-        HouseRequestDto requestDto = convertToHouseRequestDto(houseRequestDto);
+        HouseRequestDto requestDto = convertToHouseRequestDto(houseDto);
 
-        HouseResponseDto responseDto = houseService.addHouse(requestDto, files);
+        HouseResponseDto responseDto = houseService.addHouse(requestDto, file);
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -41,12 +41,12 @@ public class HouseController {
             @PathVariable String location
     ){
 
-        List<HouseResponseListDto> responseListDtoList = houseService.getAllHousesByLocation(location);
+        List<HousesDto> responseListDtoList = houseService.getAllHousesByLocation(location);
 
         return ResponseEntity.ok(responseListDtoList);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<HouseResponseDto> getAllHousesByLocation(
             @RequestParam(value="id") UUID id
     ){

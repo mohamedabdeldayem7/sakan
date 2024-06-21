@@ -23,9 +23,7 @@ public class House{
     @Column(nullable = false)
     private String location;
 
-    @ElementCollection
-    @CollectionTable(name = "house_images")
-    private List<String> images;
+    private String image;
 
     @Column(
             nullable = false
@@ -44,7 +42,7 @@ public class House{
     @Column(nullable = false)
     private String description;
 
-   
+
     private LocalDateTime createdAt;
 
 }

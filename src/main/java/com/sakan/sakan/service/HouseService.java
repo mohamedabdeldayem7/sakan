@@ -2,7 +2,7 @@ package com.sakan.sakan.service;
 
 import com.sakan.sakan.dto.HouseRequestDto;
 import com.sakan.sakan.dto.HouseResponseDto;
-import com.sakan.sakan.dto.HouseResponseListDto;
+import com.sakan.sakan.dto.HousesDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -11,9 +11,9 @@ import java.util.UUID;
 
 public interface HouseService {
 
-    HouseResponseDto addHouse(HouseRequestDto requestDto, List<MultipartFile> files) throws IOException;
+    HouseResponseDto addHouse(HouseRequestDto requestDto, MultipartFile file) throws IOException;
 
-    List<HouseResponseListDto> getAllHousesByLocation(String location);
+    List<HousesDto> getAllHousesByLocation(String location);
 
     HouseResponseDto getHouseById(UUID id);
 

@@ -2,7 +2,7 @@ package com.sakan.sakan.mapper;
 
 import com.sakan.sakan.dto.HouseRequestDto;
 import com.sakan.sakan.dto.HouseResponseDto;
-import com.sakan.sakan.dto.HouseResponseListDto;
+import com.sakan.sakan.dto.HousesDto;
 import com.sakan.sakan.entities.House;
 import org.mapstruct.Mapper;
 
@@ -15,5 +15,5 @@ public interface HouseMapper {
 
     HouseResponseDto houseToHouseResponseDto(House house);
 
-    HouseResponseListDto houseToHouseResponseListDto(House house);
+    HousesDto houseToHouseResponseListDto(House house);
 }
