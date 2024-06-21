@@ -57,6 +57,25 @@ import java.util.UUID;
     }
 
     @Override
+    public List<HousesDto> getAllHouses() {
+
+        List<House> houses = houseRepository.findAll();
+
+        List<HousesDto> responseListDtos = houses.stream()
+                .map(mapper::houseToHouseResponseListDto)
+                .toList();
+
+        for(int i=0 ; i<houses.size() ; i++){
+
+            String imageUrl = baseUrl + "/file/" + houses.get(i).getImage();
+
+            responseListDtos.get(i)
+                    .setImage(imageUrl);
+        }
+        return responseListDtos;
+    }
+
+    @Override
     public List<HousesDto> getAllHousesByLocation(String location) {
 
         List<House> houses = houseRepository.findAllByLocation(location);

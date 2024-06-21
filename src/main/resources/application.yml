@@ -17,7 +17,9 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
-
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
 server:
   servlet:
     context-path: /api/v1/sakan/

@@ -13,6 +13,8 @@ public interface HouseService {
 
     HouseResponseDto addHouse(HouseRequestDto requestDto, MultipartFile file) throws IOException;
 
+    List<HousesDto> getAllHouses();
+
     List<HousesDto> getAllHousesByLocation(String location);
 
     HouseResponseDto getHouseById(UUID id);

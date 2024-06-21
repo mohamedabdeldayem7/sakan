@@ -25,7 +25,7 @@ public class HouseController {
 
     private final HouseService houseService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/add-house",
+    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST}, value = "/add-house",
             consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HouseResponseDto> addHouse(
             @RequestPart  String houseDto,
@@ -37,6 +37,14 @@ public class HouseController {
         HouseResponseDto responseDto = houseService.addHouse(requestDto, file);
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all-houses")
+    public ResponseEntity<?> getAllHouses(){
+
+        List<HousesDto> responseListDtoList = houseService.getAllHouses();
+
+        return ResponseEntity.ok(responseListDtoList);
     }
 
     @GetMapping("/all/{location}")
