@@ -15,11 +15,14 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   servlet:
     multipart:
-      max-file-size: 6MB
-      max-request-size: 6MB
+      max-file-size: 50MB
+      max-request-size: 50MB
 
+server:
+  servlet:
+    context-path: /api/v1/sakan/
 project:
-  poster: poster/
+  house: house/
 
 base:
-  url: "http://localhost:8080"
+  url: "http://localhost:8080/api/v1/sakan"

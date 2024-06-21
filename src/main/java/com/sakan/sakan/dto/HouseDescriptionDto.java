@@ -1,9 +1,5 @@
-package com.sakan.sakan.entities;
+package com.sakan.sakan.dto;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,8 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Embeddable
-public class HouseDescription {
+public class HouseDescriptionDto {
 
     private Integer numberOfRooms;
 
@@ -23,5 +18,4 @@ public class HouseDescription {
     private Double price;
 
     private String otherDescription;
-
 }

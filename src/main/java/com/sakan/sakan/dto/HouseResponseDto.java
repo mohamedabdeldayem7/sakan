@@ -1,8 +1,7 @@
-package com.sakan.sakan.entities;
+package com.sakan.sakan.dto;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,38 +12,26 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@Entity
-public class House{
+public class HouseResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
     private String location;
 
-    @ElementCollection
-    @CollectionTable(name = "house_images")
     private List<String> images;
 
-    @Column(
-            nullable = false
-    )
     private Integer numberOfRooms;
 
     private String kitchens;
 
     private String bathrooms;
 
-    @Column(nullable = false)
     private Double price;
 
     private Integer rate;
 
-    @Column(nullable = false)
     private String description;
 
-   
     private LocalDateTime createdAt;
 
 }
