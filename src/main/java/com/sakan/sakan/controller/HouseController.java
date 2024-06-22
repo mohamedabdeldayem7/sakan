@@ -26,7 +26,8 @@ public class HouseController {
     private final HouseService houseService;
 
     @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST}, value = "/add-house",
-            consumes= MediaType.ALL_VALUE)
+            consumes= {MediaType.MULTIPART_FORM_DATA_VALUE,
+                    MediaType.MULTIPART_MIXED_VALUE, MediaType.MULTIPART_RELATED_VALUE} )
 //    @PostMapping(value = "/add-house", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HouseResponseDto> addHouse(
             @RequestPart  String houseDto,
