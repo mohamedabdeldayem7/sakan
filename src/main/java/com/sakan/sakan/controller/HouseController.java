@@ -25,9 +25,10 @@ public class HouseController {
 
     private final HouseService houseService;
 
-    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST}, value = "/add-house",
-            consumes= {MediaType.MULTIPART_FORM_DATA_VALUE,
-                    MediaType.MULTIPART_MIXED_VALUE, MediaType.MULTIPART_RELATED_VALUE} )
+    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST},
+            value = "/add-house",
+            consumes= MediaType.MULTIPART_FORM_DATA_VALUE
+    )
 //    @PostMapping(value = "/add-house", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HouseResponseDto> addHouse(
             @RequestPart  String houseDto,
@@ -72,6 +73,29 @@ public class HouseController {
     private HouseRequestDto convertToHouseRequestDto(String dto) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(dto, HouseRequestDto.class);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,
+            value = "/update-house",
+            consumes= MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+//    @PutMapping(value = "/update-house", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<HouseResponseDto> updateHouse(
+            @RequestPart  String houseDto,
+            @RequestPart MultipartFile file,
+            @RequestParam(value = "id") UUID id
+    ) throws IOException {
+
+        HouseRequestDto requestDto = convertToHouseRequestDto(houseDto);
+
+        HouseResponseDto responseDto = houseService.updateHouse(id, requestDto, file);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-house")
+    public ResponseEntity<String> deleteHouse(@RequestParam(value = "id") UUID id){
+        return ResponseEntity.ok(houseService.deleteHouse(id));
     }
 
 }

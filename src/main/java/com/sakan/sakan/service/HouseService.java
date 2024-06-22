@@ -19,4 +19,8 @@ public interface HouseService {
 
     HouseResponseDto getHouseById(UUID id);
 
+    HouseResponseDto updateHouse(UUID id, HouseRequestDto requestDto, MultipartFile file) throws IOException;
+
+    String deleteHouse(UUID id);
+
 }

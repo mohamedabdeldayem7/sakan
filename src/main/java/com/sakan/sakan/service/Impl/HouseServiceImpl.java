@@ -16,12 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor public class HouseServiceImpl implements HouseService {
+@RequiredArgsConstructor
+public class HouseServiceImpl implements HouseService {
 
     private final HouseRepository houseRepository;
 
@@ -107,6 +107,44 @@ import java.util.UUID;
         responseDto.setImage(imageUrl);
 
         return responseDto;
+    }
+
+    @Override
+    public HouseResponseDto updateHouse(UUID id, HouseRequestDto requestDto, MultipartFile file) throws IOException {
+
+        House house = houseRepository.findById(id)
+                .orElseThrow(() -> new HouseNotFoundException("House not found to update!, please enter a valid id!"));
+
+        house.setLocation(requestDto.getLocation());
+        house.setBathrooms(requestDto.getBathrooms());
+        house.setKitchens(requestDto.getKitchens());
+        house.setNumberOfRooms(requestDto.getNumberOfRooms());
+        house.setPrice(requestDto.getPrice());
+        house.setDescription(requestDto.getDescription());
+
+        if(!file.isEmpty()) {
+            String uploadedFile = fileService.uploadFile(path, file);
+            house.setImage(uploadedFile);
+        }
+
+        House updatedHouse = houseRepository.save(house);
+
+        HouseResponseDto responseDto = mapper.houseToHouseResponseDto(updatedHouse);
+        responseDto.setImage(updatedHouse.getImage());
+
+        return responseDto;
+
+    }
+
+    @Override
+    public String deleteHouse(UUID id) {
+
+        House house = houseRepository.findById(id)
+                .orElseThrow(() -> new HouseNotFoundException("House not found!, please enter a valid id!"));
+
+        houseRepository.deleteById(id);
+
+        return "House with id: " + id.toString() + " deleted successfully!";
     }
 
 }
