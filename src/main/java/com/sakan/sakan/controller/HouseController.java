@@ -6,11 +6,11 @@ import com.sakan.sakan.dto.HouseRequestDto;
 import com.sakan.sakan.dto.HouseResponseDto;
 import com.sakan.sakan.dto.HousesDto;
 import com.sakan.sakan.service.HouseService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +29,6 @@ public class HouseController {
             value = "/add-house",
             consumes= MediaType.MULTIPART_FORM_DATA_VALUE
     )
-//    @PostMapping(value = "/add-house", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HouseResponseDto> addHouse(
             @RequestPart  String houseDto,
             @RequestPart MultipartFile file
@@ -61,7 +60,7 @@ public class HouseController {
     }
 
     @GetMapping
-    public ResponseEntity<HouseResponseDto> getAllHousesByLocation(
+    public ResponseEntity<HouseResponseDto> getAllHousesById(
             @RequestParam(value="id") UUID id
     ){
 

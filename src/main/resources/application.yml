@@ -22,9 +22,9 @@ spring:
 #      matching-strategy: ant_path_matcher
 server:
   servlet:
-    context-path: /api/v1/sakan/
+    context-path: /api/v1
 project:
   house: house/
-
+  profile: profile/
 base:
-  url: "http://localhost:8080/api/v1/sakan"
+  url: "https://7163-197-59-158-169.ngrok-free.app/api/v1"

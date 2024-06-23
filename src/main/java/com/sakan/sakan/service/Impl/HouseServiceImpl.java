@@ -102,7 +102,7 @@ public class HouseServiceImpl implements HouseService {
 
         HouseResponseDto responseDto = mapper.houseToHouseResponseDto(house);
 
-        String imageUrl = baseUrl + "/file/" + house.getImage();
+        String imageUrl = baseUrl + "/house-image/" + house.getImage();
 
         responseDto.setImage(imageUrl);
 
