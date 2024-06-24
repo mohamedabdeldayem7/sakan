@@ -48,6 +48,9 @@ public class HouseServiceImpl implements HouseService {
         house.setImage(uploadedFile);
         house.setCreatedAt(LocalDateTime.now());
 
+        house.setKitchens("kitchens");
+        house.setBathrooms("bathroom");
+
         House savedHouse = houseRepository.save(house);
 
         HouseResponseDto responseDto = mapper.houseToHouseResponseDto(savedHouse);
@@ -119,7 +122,8 @@ public class HouseServiceImpl implements HouseService {
         house.setBathrooms(requestDto.getBathrooms());
         house.setKitchens(requestDto.getKitchens());
         house.setNumberOfRooms(requestDto.getNumberOfRooms());
-        house.setPrice(requestDto.getPrice());
+        house.setMinPrice(requestDto.getMinPrice());
+        house.setMaxPrice(requestDto.getMaxPrice());
         house.setDescription(requestDto.getDescription());
 
         if(!file.isEmpty()) {

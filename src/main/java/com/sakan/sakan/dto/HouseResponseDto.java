@@ -1,5 +1,6 @@
 package com.sakan.sakan.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -26,7 +27,9 @@ public class HouseResponseDto {
 
     private String bathrooms;
 
-    private Double price;
+    private Double minPrice;
+
+    private Double maxPrice;
 
     private Integer rate;
 

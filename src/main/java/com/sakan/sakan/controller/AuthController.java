@@ -44,7 +44,7 @@ public class AuthController {
 
     // endpoint to register new user
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(RegisterRequest request) throws JsonProcessingException {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) throws JsonProcessingException {
 
         logger.info(request.toString());
 //        RegisterRequest registerRequest = convertToRegisterRequest(request);
@@ -78,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refreshToken(RefreshTokenRequest request) {
+    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
 
         RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(request.getRefreshToken());
         User user = refreshToken.getUser();

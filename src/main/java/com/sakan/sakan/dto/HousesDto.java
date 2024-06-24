@@ -1,6 +1,7 @@
 package com.sakan.sakan.dto;
 
 
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.util.UUID;
@@ -24,7 +25,11 @@ public class HousesDto {
 
     private String bathrooms;
 
-    private Double price;
+    private Double minPrice;
+
+    private Double maxPrice;
+
+    private String description;
 
     private Integer rate;
 

@@ -35,7 +35,10 @@ public class House{
     private String bathrooms;
 
     @Column(nullable = false)
-    private Double price;
+    private Double minPrice;
+
+    @Column(nullable = false)
+    private Double maxPrice;
 
     private Integer rate;
 
