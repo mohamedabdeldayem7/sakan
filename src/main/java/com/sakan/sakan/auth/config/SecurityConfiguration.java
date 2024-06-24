@@ -32,7 +32,8 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "auth/complete-profile")
+                        .requestMatchers("/auth/**", "auth/complete-profile",
+                                "http://sakan-production-5ec7.up.railway.app/api/v1/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
